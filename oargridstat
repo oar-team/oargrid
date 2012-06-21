@@ -199,7 +199,11 @@ if ($listNodes > 0 || $listKeys > 0){
                                                 WHERE
                                                     moldable_job_descriptions.moldable_job_id IN ($whereClause)
                                                     AND assigned_resources.moldable_job_id = moldable_job_descriptions.moldable_id
-                                                    AND resources.resource_id = assigned_resources.resource_id $whereProps");
+                                                    AND resources.resource_id = assigned_resources.resource_id
+                                                    AND resources.network_address IS NOT NULL
+                                                    AND resources.network_address != ""  
+                                                    $whereProps
+                                                ORDER BY resources.network_address");
                     $sth->execute();
                     while (my @ref = $sth->fetchrow_array()) {
                         ##for (my $w = 0; $w < $weights{$ref[1]}; $w++){
