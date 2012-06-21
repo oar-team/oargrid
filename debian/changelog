@@ -1,3 +1,11 @@
+oargrid (2.2.5) unstable; urgency=low
+
+  * Oargridstat does not print lines with empty network_address
+  * Oargridstat sorts by network_address
+  * Replaced /bin/sh by /bin/bash
+
+ -- Bruno Bzeznik <Bruno.Bzeznik@imag.fr>  Thu, 21 Jun 2012 07:30:08 +0200
+
 oargrid (2.2.4) unstable; urgency=low
 
   * Oargrid now supports jobs having several types
