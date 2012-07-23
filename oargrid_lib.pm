@@ -125,7 +125,7 @@ sub add_new_grid_reservation($$$$$$$$){
 sub get_cluster_names($){
     my $dbh = shift;
 
-    my $sth = $dbh->prepare("SELECT * FROM clusters order by parent,clusterName");
+    my $sth = $dbh->prepare("SELECT * FROM clusters WHERE deprecated IS NOT true ORDER BY parent,clusterName");
     $sth->execute();
     my %res = ();
     while (my $ref = $sth->fetchrow_hashref()) {

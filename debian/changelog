@@ -1,3 +1,9 @@
+oargrid (2.2.6) unstable; urgency=low
+
+  * Misc bugfixes into oargridstat 
+
+ -- Bruno Bzeznik <Bruno.Bzeznik@imag.fr>  Mon, 23 Jul 2012 09:52:29 +0200
+
 oargrid (2.2.5) unstable; urgency=low
 
   * Oargridstat does not print lines with empty network_address
