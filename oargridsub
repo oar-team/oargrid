@@ -354,7 +354,7 @@ while (($#clusterArguments >= 0) && ($endLoop == 0)){
 	exit 10;
         #$cmd .= " --force-cpuset-name $cpuset_name";
     }
-    if ($tmpType ne "") {
+    if ((defined $tmpType) && ($tmpType ne "")) {
       $cmd .= " ".$tmpType;
     }
     if ($i->{properties} ne ""){
