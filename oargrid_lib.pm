@@ -11,7 +11,7 @@ use oargrid_conflib;
 
 my $commandTimeout = 60;
 my $configFileName = "oargrid.conf";
-my $Version = "2.2.6";
+my $Version = "3.0.0";
 
 sub get_config_file_name(){
     return($configFileName);
@@ -45,6 +45,25 @@ sub connect($$$$) {
     my $pwd = shift;
 
     my $dbh = DBI->connect("DBI:mysql:database=$dbName;host=$host", $user, $pwd,
+                            {'RaiseError' => 1,'InactiveDestroy' => 1}
+                          ) or die("Can not connet to the database $dbName on the host $host with login $user\n");
+    return $dbh;
+}
+
+# Connect to the postgres database and give the ref of this connection
+# arg1 : hostname of the database
+# arg2 : name of the database
+# arg3 : username to connect to the database
+# arg4 : password for this user
+# return : ref of the connection 
+sub connectPg($$$$) {
+    # Connect to the database.
+    my $host = shift;
+    my $dbName = shift;
+    my $user = shift;
+    my $pwd = shift;
+
+    my $dbh = DBI->connect("DBI:Pg:database=$dbName;host=$host", $user, $pwd,
                             {'RaiseError' => 1,'InactiveDestroy' => 1}
                           ) or die("Can not connet to the database $dbName on the host $host with login $user\n");
     return $dbh;

@@ -153,7 +153,7 @@ if ($listNodes > 0 || $listKeys > 0){
                     $SIG{ALRM} = sub {oargrid_lib::disconnect($remoteDbh);die("alarm\n")};
                     alarm($timeoutMysql);
             
-                    $remoteDbh = oargrid_lib::connect($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $clusters{$i}->{dbUser},$clusters{$i}->{dbPassword});
+                    $remoteDbh = oargrid_lib::connectPg($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $clusters{$i}->{dbUser},$clusters{$i}->{dbPassword});
                     my $whereClause = "" ;
                     my $whereProps = "" ;
                     foreach my $j (values(%{$resaInfo{clusterJobs}->{$i}})){
@@ -235,7 +235,7 @@ if ($listNodes > 0 || $listKeys > 0){
                 if ($@){
                     $exit_value = 2;
                     $retry = 0;
-                    warn("$i mysql server timed out or was unreachable : $@\n");
+                    warn("$i sql server timed out or was unreachable : $@\n");
                 }
                 
                 if ($jobEnded > 0){
@@ -411,7 +411,7 @@ if ($listNodes > 0 || $listKeys > 0){
 
             my %results;
 
-            my $remoteDbh = oargrid_lib::connect($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $clusters{$i}->{dbUser},$clusters{$i}->{dbPassword});
+            my $remoteDbh = oargrid_lib::connectPg($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $clusters{$i}->{dbUser},$clusters{$i}->{dbPassword});
             
             if (defined($monitorMode)){
                 #monitor queries
