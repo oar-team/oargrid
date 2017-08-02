@@ -16,6 +16,6 @@ Description: Grid manager for oar
 
 Package: oargrid-disco
 Architecture: all
-Depends: oargrid-client, ruby, libyaml-ruby, libyaml-perl
+Depends: oargrid-client, ruby, libyaml-perl
 Description: Discovery tool for oargrid
  A simple resource discovery tool for oargrid to find the maximum available resources on a given time range for specifed alias(s) of resources.
