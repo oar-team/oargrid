@@ -1,3 +1,21 @@
+oargrid (3.0.2) unstable; urgency=high
+
+  * Bug fix (Use login from oargrid.conf to connect to OAR Db)
+
+ -- Arthur Garnier <arthur.garnier@inria.fr>  Mon, 19 Aug 2015 10:00:00 +0200
+
+oargrid (3.0.1) unstable; urgency=high
+
+  * Bug fix (Postgres doesn't support double quote like WHERE xxx="yyy")
+
+ -- Arthur Garnier <arthur.garnier@inria.fr>  Mon, 19 Aug 2015 10:00:00 +0200
+
+oargrid (3.0.0) unstable; urgency=high
+
+  * Migrate from Mysql to Postgres on OAR side
+
+ -- Arthur Garnier <arthur.garnier@inria.fr>  Mon, 19 Aug 2015 10:00:00 +0200
+
 oargrid (2.2.6) unstable; urgency=low
 
   * Misc bugfixes into oargridstat 

@@ -118,6 +118,8 @@ my $DB_SERVER = oargrid_conflib::get_conf("DB_HOSTNAME");
 my $DB_BASE_NAME= oargrid_conflib::get_conf("DB_BASE_NAME");
 my $DB_BASE_LOGIN = oargrid_conflib::get_conf("DB_BASE_LOGIN");
 my $DB_BASE_PASSWD = oargrid_conflib::get_conf("DB_BASE_PASSWD");
+my $DB_OAR_LOGIN = oargrid_conflib::get_conf("DB_OAR__LOGIN");
+my $DB_OAR_PASSWD = oargrid_conflib::get_conf("DB_OAR_PASSWD");
 
 my $dbh = oargrid_lib::connect($DB_SERVER,$DB_BASE_NAME,$DB_BASE_LOGIN,$DB_BASE_PASSWD);
 
@@ -153,7 +155,7 @@ if ($listNodes > 0 || $listKeys > 0){
                     $SIG{ALRM} = sub {oargrid_lib::disconnect($remoteDbh);die("alarm\n")};
                     alarm($timeoutMysql);
             
-                    $remoteDbh = oargrid_lib::connectPg($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $clusters{$i}->{dbUser},$clusters{$i}->{dbPassword});
+                    $remoteDbh = oargrid_lib::connectPg($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $DB_OAR_LOGIN, $DB_OAR_PASSWD);
                     my $whereClause = "" ;
                     my $whereProps = "" ;
                     foreach my $j (values(%{$resaInfo{clusterJobs}->{$i}})){
@@ -411,7 +413,7 @@ if ($listNodes > 0 || $listKeys > 0){
 
             my %results;
 
-            my $remoteDbh = oargrid_lib::connectPg($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $clusters{$i}->{dbUser},$clusters{$i}->{dbPassword});
+            my $remoteDbh = oargrid_lib::connectPg($clusters{$i}->{dbHostname},$clusters{$i}->{dbName}, $DB_OAR_LOGIN, $DB_OAR_PASSWD);
             
             if (defined($monitorMode)){
                 #monitor queries
@@ -425,16 +427,16 @@ if ($listNodes > 0 || $listKeys > 0){
                 else { $clusterProperties = "";}
                 $sth = $remoteDbh->prepare(" SELECT *
                                              FROM jobs j, assigned_resources p, resources r, moldable_job_descriptions m
-                                             WHERE (j.state=\"Waiting\"
-                                                OR    j.state=\"toLaunch\"
-                                                OR    j.state=\"Running\"
-                                                OR    j.state=\"Launching\"
-                                                OR    j.state=\"Suspended\"
-                                                OR    j.state=\"Resuming\"
-                                                OR    j.state=\"Hold\"
-                                                OR    j.state=\"toError\"
-                                                OR    j.state=\"toFinish\"
-                                                OR    j.state=\"toAckReservation\")
+                                             WHERE (j.state=\'Waiting\'
+                                                OR    j.state=\'toLaunch\'
+                                                OR    j.state=\'Running\'
+                                                OR    j.state=\'Launching\'
+                                                OR    j.state=\'Suspended\'
+                                                OR    j.state=\'Resuming\'
+                                                OR    j.state=\'Hold\'
+                                                OR    j.state=\'toError\'
+                                                OR    j.state=\'toFinish\'
+                                                OR    j.state=\'toAckReservation\')
                                                 AND   p.moldable_job_id = j.assigned_moldable_job
                                                 AND   r.resource_id=p.resource_id
 						AND   m.moldable_id = j.assigned_moldable_job 
@@ -572,9 +574,9 @@ if ($listNodes > 0 || $listKeys > 0){
             foreach my $j (keys(%{$results{jobs}})){
                 my $localSth = $localDbh->prepare(" SELECT clusterJobsReservationId
                                                     FROM clusterJobs,clusters
-                                                    WHERE   ( clusterJobsClusterName = \"$i\" OR clusterJobsClusterName = parent )
+                                                    WHERE   ( clusterJobsClusterName = \'$i\' OR clusterJobsClusterName = parent )
                                                         AND clusterJobsBatchId = $j
-							AND clusters.clusterName = \"$i\"
+							AND clusters.clusterName = \'$i\'
                                                   ");
                 $localSth->execute();
                 my @res = $localSth->fetchrow_array();
