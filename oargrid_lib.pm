@@ -11,7 +11,7 @@ use oargrid_conflib;
 
 my $commandTimeout = 60;
 my $configFileName = "oargrid.conf";
-my $Version = "3.0.0";
+my $Version = "3.0.3";
 
 sub get_config_file_name(){
     return($configFileName);
